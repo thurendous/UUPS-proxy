@@ -14,6 +14,8 @@ contract Mars is
 {
     function initialize() public initializer {
         __ERC20_init("Mars", "MARS");
+        __Ownable_init(); // important
+
         _mint(msg.sender, 10000000 * 10**decimals());
     }
 
@@ -22,4 +24,23 @@ contract Mars is
         override
         onlyOwner
     {}
+}
+
+contract MarsV2 is Mars {
+    uint256 fee;
+
+    function version() public pure returns (string memory) {
+        return "This is v2";
+    }
+}
+
+contract MarsV3 is Mars {
+    // this is a mistake example
+    // you need to carete a fee state variable or inherit the MarsV2 contract instead to make the sotrage position meet
+    uint256 fee;
+    string tax;
+
+    function version() public pure returns (string memory) {
+        return "This is v3";
+    }
 }
